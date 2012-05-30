@@ -1,6 +1,6 @@
 # Librarian-EC2
 
-Shell scipts to provsion an EC2 instance from an existing Vagrantfile ([Vagrant](http://vagrantup.com)) and Cheffile ([Librarian](https://github.com/applicationsonline/librarian)) config files.
+Shell scipts to provision an EC2 instance from an existing Vagrantfile ([Vagrant](http://vagrantup.com)) and Cheffile ([Librarian](https://github.com/applicationsonline/librarian)) config files.
 
 This project is inspired by [vagrant-ec2](https://github.com/lynaghk/vagrant-ec2/) (and [vagrant-ec2-r](https://github.com/wch/vagrant-ec2-r)) but works with coobooks with dependencies by relying on [Librarian](https://github.com/applicationsonline/librarian).
 
