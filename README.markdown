@@ -1,8 +1,10 @@
 # Librarian-EC2
 
-Transpose Librarian based Vagrant provisioning to EC2 with Chef-solo.
+Shell scipts to provsion an EC2 instance from an existing Vagrantfile ([Vagrant](http://vagrantup.com)) and Cheffile ([Librarian](https://github.com/applicationsonline/librarian)) config files.
 
-This repository shows how to use the same `chef-solo`-based provisioning scheme for Vagrant virtual machines and Amazon's EC2. This tool rely on [Librarian](https://github.com/applicationsonline/librarian) and the Cheffile to fetch the recipes on your host and on your EC2 Instance. It's a good KISS solution for provisionning and to prevent dependencies, or versions problems accross your cookbooks between your production and your development environment.
+This project is inspired by [vagrant-ec2](https://github.com/lynaghk/vagrant-ec2/) (and [vagrant-ec2-r](https://github.com/wch/vagrant-ec2-r)) but works with coobooks with dependencies by relying on [Librarian](https://github.com/applicationsonline/librarian).
+
+It's a good KISS solution for provisionning and to prevent dependencies, or versions problems accross your cookbooks between your production and your development environment.
 
 These scripts have been tested only on Mac OS X 10.7 but should works on many unix based system, and if not, the script is simple fix it and make a pull request ;)
 
@@ -13,7 +15,7 @@ These scripts have been tested only on Mac OS X 10.7 but should works on many un
 * [Librarian](https://github.com/applicationsonline/librarian) (`gem install librarian`)
 
 ## Introduction to Vagrant and Librarian
-If you need an developer-centric introduction to vagrant and librarian please refer to my posts on my tumblr [tumblr.nrako.com/tagged/vagrant](http://tumblr.nrako.com/tagged/vagrant).
+If you need an developer-centric introduction to Vagrant and Librarian please refer to my posts on tumblr [tumblr.nrako.com/tagged/vagrant](http://tumblr.nrako.com/tagged/vagrant).
 
 ## Provisoning EC2
 
@@ -100,22 +102,6 @@ Just add six lines in the provisioning section of your `Vagrantfile` so it looks
         f.write chef.json.to_json
       end
     end
-
-
-## Set up notes
-
-
-### Installing EC2 command line tools in Ubuntu Linux
-
-The EC2 command line tools can be installed by enabling the "multiverse" repositories. In `/etc/apt/sources.list`, uncomment the lines that end with `multiverse`. For example:
-
-    deb http://us.archive.ubuntu.com/ubuntu/ precise multiverse
-    deb http://us.archive.ubuntu.com/ubuntu/ precise-updates multiverse
-
-Then run:
-
-    sudo apt-get update
-    sudo apt-get install ec2-api-tools
 
 
 ## Thanks
