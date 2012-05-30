@@ -4,7 +4,7 @@ Shell scipts to provision an EC2 instance from an existing Vagrantfile ([Vagrant
 
 This project is inspired by [vagrant-ec2](https://github.com/lynaghk/vagrant-ec2/) (and [vagrant-ec2-r](https://github.com/wch/vagrant-ec2-r)) but works with coobooks with dependencies by relying on [Librarian](https://github.com/applicationsonline/librarian).
 
-It's a good KISS solution for provisionning and to prevent dependencies, or versions problems accross your cookbooks between your production and your development environment.
+It's an easy solution for provisionning and EC2 instance.
 
 These scripts have been tested only on Mac OS X 10.7 but should works on many unix based system, and if not, the script is simple fix it and make a pull request ;)
 
@@ -13,6 +13,7 @@ These scripts have been tested only on Mac OS X 10.7 but should works on many un
 * [VirtualBox 4](http://www.virtualbox.org/wiki/Downloads)
 * [Vagrant](http://vagrantup.com) (`gem install vagrant`)
 * [Librarian](https://github.com/applicationsonline/librarian) (`gem install librarian`)
+* [EC2 API Tools](http://aws.amazon.com/developertools/351)
 
 ## Introduction to Vagrant and Librarian
 If you need an developer-centric introduction to Vagrant and Librarian please refer to my posts on tumblr [tumblr.nrako.com/tagged/vagrant](http://tumblr.nrako.com/tagged/vagrant).
@@ -80,6 +81,7 @@ This will `scp` secure copy Cheffile and dna.json to the EC2 instance, run `libr
 It should print a lot of diagnostic info to the terminal. If it doesn't, wait a little while and try again.
 
 You can ssh into the machine:
+    
     ssh -i ~/.ec2/ec2-us-west-1-keypair ubuntu@<ip address>
 
 This will terminate your instances when you're finished:
