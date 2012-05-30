@@ -20,7 +20,7 @@ If you need an developer-centric introduction to Vagrant and Librarian please re
 
 ## Provisoning EC2
 
-### One-time setup of local machine for EC2
+### One-time setup EC2 API Tools
 
 On your local machine, you will need the following:
 
@@ -106,6 +106,7 @@ Just add six lines in the provisioning section of your `Vagrantfile` so it looks
     end
 
 
-## Thanks
-This project is based on [vagrant-ec2-r](https://github.com/wch/vagrant-ec2-r) from Winston Chang.
+## Credits
+Inspired by [vagrant-ec2-r](https://github.com/wch/vagrant-ec2-r) from Winston Chang.
 Which is based on [vagrant-ec2](https://github.com/lynaghk/vagrant-ec2/) from Keming labs.
+[Librarian](https://github.com/applicationsonline/librarian) from Jay Feldblum.
