@@ -16,4 +16,3 @@ site 'http://community.opscode.com/api/v1'
 
 cookbook 'apt'
 cookbook 'git'
-cookbook 'apache2'
