@@ -15,14 +15,14 @@ fi
 #Run vagrant to create dna.json
 echo "Making dna.json"
 eval "cd \"$2\" && \
-      vagrant > /dev/null"
+      vagrant > /dev/null && \
+      cd -"
 
 #Try to match and extract a port provided to the script
 ADDR=$1
 IP=${ADDR%:*}
 PORT=${ADDR#*:}
 if [ "$IP" == "$PORT" ] ; then
-  
     PORT=22
 fi
 
@@ -68,7 +68,7 @@ eval "ssh -t -p \"$PORT\" -l \"$USERNAME\" -i \"$EC2_SSH_PRIVATE_KEY\" $USERNAME
 cp -r /home/$USERNAME/Cheffile . && \
 cp -r /home/$USERNAME/dna.json . && \
 librarian-chef install && \
-chef-solo -c solo.rb -j dna.json'\""
+chef-solo -c $CHEF_FILE_CACHE_PATH/solo.rb -j dna.json'\""
 
 echo "Done!"
 
