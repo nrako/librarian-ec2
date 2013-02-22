@@ -68,7 +68,7 @@ eval "ssh -t -p \"$PORT\" -l \"$USERNAME\" -i \"$EC2_SSH_PRIVATE_KEY\" $USERNAME
 cp -r /home/$USERNAME/Cheffile . && \
 cp -r /home/$USERNAME/dna.json . && \
 librarian-chef install && \
-chef-solo -c solo.rb -j dna.json'\""
+chef-solo -c $CHEF_FILE_CACHE_PATH/solo.rb -j dna.json'\""
 
 echo "Done!"
 
