@@ -15,14 +15,14 @@ fi
 #Run vagrant to create dna.json
 echo "Making dna.json"
 eval "cd \"$2\" && \
-      vagrant > /dev/null"
+      vagrant > /dev/null && \
+      cd -"
 
 #Try to match and extract a port provided to the script
 ADDR=$1
 IP=${ADDR%:*}
 PORT=${ADDR#*:}
 if [ "$IP" == "$PORT" ] ; then
-  
     PORT=22
 fi
 
