@@ -29,6 +29,7 @@ fi
 USERNAME=ubuntu
 CHEFFILE=$2/Cheffile
 DNA=$2/dna.json
+LOCAL_COOKBOOKS=$2/cookbooks-src
 
 EC2_SSH_PRIVATE_KEY=$3
 
@@ -42,7 +43,12 @@ scp -i $EC2_SSH_PRIVATE_KEY -r -P $PORT \
   $DNA \
   $USERNAME@$IP:.
 
-
+if [ -d $LOCAL_COOKBOOKS ]; then
+  echo "Uploading $LOCAL_COOKBOOKS"
+  scp -i $EC2_SSH_PRIVATE_KEY -r -P $PORT \
+    $LOCAL_COOKBOOKS \
+    $USERNAME@$IP:.
+fi
 
 #check to see if the bootstrap script has completed running
 echo "Check requirements chef-solo and librarian-chef"
@@ -67,6 +73,7 @@ echo "Run librarian-chef and chef-solo, this can take a while"
 eval "ssh -t -p \"$PORT\" -l \"$USERNAME\" -i \"$EC2_SSH_PRIVATE_KEY\" $USERNAME@$IP \"sudo -i sh -c 'cd $CHEF_FILE_CACHE_PATH && \
 cp -r /home/$USERNAME/Cheffile . && \
 cp -r /home/$USERNAME/dna.json . && \
+cp -r /home/$USERNAME/cookbooks-src . && \
 librarian-chef install && \
 chef-solo -c $CHEF_FILE_CACHE_PATH/solo.rb -j dna.json'\""
 
