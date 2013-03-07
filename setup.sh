@@ -38,7 +38,7 @@ CHEF_FILE_CACHE_PATH=/tmp/cheftime
 
 #Upload Chefile and dna.json to directory (need to use sudo to copy over to $CHEF_FILE_CACHE_PATH and run chef)
 echo "Uploading Cheffile and dna.json"
-scp -i $EC2_SSH_PRIVATE_KEY -r -P $PORT \
+scp -q -i $EC2_SSH_PRIVATE_KEY -r -P $PORT \
   $CHEFFILE \
   $DNA \
   $USERNAME@$IP:.
@@ -59,7 +59,7 @@ OVER=0
 TESTS=0
 while [ $OVER != 1 ] && [ $TESTS -lt $MAX_TESTS ]; do
   echo "Testing for installation of chef-solo"
-  (ssh -t -p "$PORT" -o "StrictHostKeyChecking no" \
+  (ssh -q -t -p "$PORT" -o "StrictHostKeyChecking no" \
     -i $EC2_SSH_PRIVATE_KEY \
     $USERNAME@$IP \
     "which chef-solo > /dev/null")
@@ -80,7 +80,7 @@ OVER=0
 TESTS=0
 while [ $OVER != 1 ] && [ $TESTS -lt $MAX_TESTS ]; do
   echo "Testing for installation of librarian-chef"
-  (ssh -t -p "$PORT" -o "StrictHostKeyChecking no" \
+  (ssh -q -t -p "$PORT" -o "StrictHostKeyChecking no" \
     -i $EC2_SSH_PRIVATE_KEY \
     $USERNAME@$IP \
     "which librarian-chef > /dev/null")
@@ -100,7 +100,7 @@ echo "$INSTANCE has librarian-chef installed"
 #Okay, run it.
 echo "Run librarian-chef and chef-solo, this can take a while"
 
-eval "ssh -t -p \"$PORT\" -l \"$USERNAME\" -i \"$EC2_SSH_PRIVATE_KEY\" $USERNAME@$IP \"sudo -i sh -c 'cd $CHEF_FILE_CACHE_PATH && \
+eval "ssh -q -t -p \"$PORT\" -l \"$USERNAME\" -i \"$EC2_SSH_PRIVATE_KEY\" $USERNAME@$IP \"sudo -i sh -c 'cd $CHEF_FILE_CACHE_PATH && \
 cp -r /home/$USERNAME/Cheffile . && \
 cp -r /home/$USERNAME/dna.json . && \
 cp -r /home/$USERNAME/cookbooks-src . && \
