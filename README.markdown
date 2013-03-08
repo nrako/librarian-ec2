@@ -6,7 +6,7 @@ This project is inspired by [vagrant-ec2](https://github.com/lynaghk/vagrant-ec2
 
 It's an easy solution for provisionning and EC2 instance.
 
-These scripts have been tested only on Mac OS X 10.7 but should works on many unix based system, and if not, the script is simple fix it and make a pull request ;)
+These scripts have been tested only on Mac OS X 10.7 but should works on many unix based system, and if it's note the case, the script is simple fix it and make a pull request ;)
 
 ## Requirements
 
@@ -20,42 +20,25 @@ If you need an developer-centric introduction to Vagrant and Librarian please re
 
 ## Provisoning EC2
 
-### One-time setup EC2 API Tools
+### Requirements
 
 On your local machine, you will need the following:
 
-* Do steps 1-11 from [this page](http://petterolsson.blogspot.com/2012/02/installing-amazon-ec2-api-tools-on-mac.html).
-  * On Linux, instead of doing step 8, installing the EC2 command-line tools manually, they can be installed with `apt-get`. See the section on Linux below for more information.
-  * Instead of step 12, put the following in your `~/.profile`. Make sure that the `JAVA_HOME` is appropriate for your system; if you have a Mac, delete the line for Linux:
+* [AWS EC2 API Tools](http://aws.amazon.com/developertools/3519) installed and setup, try [google](https://www.google.com/search?q=setup+aws+ec2+api+tools) to find help for the setup.
+* The JSON Ruby gem:
 
-```
-# Setup Amazon EC2 Command-Line Tools
-export EC2_HOME=~/.ec2
-export PATH=$PATH:$EC2_HOME/bin
-export EC2_PRIVATE_KEY=`echo $EC2_HOME/pk-*.pem`
-export EC2_CERT=`echo $EC2_HOME/cert-*.pem`
-export JAVA_HOME=`/usr/libexec/java_home`   # On Mac
-export JAVA_HOME=/usr/lib/jvm/default-java  # On Ubuntu linux
-```
+  ```
+  gem install --user-install json
+  ```
 
-* Make sure you have the JSON Ruby gem installed:
+* Create a key pair in the appropriate region if you don't have one. In our example the region is `us-west-1`, and we'll use the name `ec2-us-west-1-keypair`:
 
-```
-gem install --user-install json
-```
+  ```
+  ec2-add-keypair --region us-west-1 ec2-us-west-1-keypair > ~/.ec2/ec2-us-west-1-keypair
+  chmod 600 ~/.ec2/ec2-us-west-1-keypair
+  ```
 
-* Create a key pair in the appropriate region. In this case the region is `us-west-1`, and we'll use the name `ec2-us-west-1-keypair`:
-
-```
-ec2-add-keypair --region us-west-1 ec2-us-west-1-keypair > ~/.ec2/ec2-us-west-1-keypair
-chmod 600 ~/.ec2/ec2-us-west-1-keypair
-```
-
-Note : ubuntu on us-east-1 has some [temporary issue as today (29th Mai 2012)](https://forums.aws.amazon.com/thread.jspa?threadID=95616)
-
-After you do all these things, you will need to start a new terminal, or simply run all the `export` lines (that you added to your `~/.profile`) from your command line.
-
-    source ~/.profile
+  Note : ubuntu on us-east-1 has some [temporary issue as today (29th Mai 2012)](https://forums.aws.amazon.com/thread.jspa?threadID=95616)
 
 
 ### Create and provision an EC2 instance machine
@@ -81,7 +64,7 @@ This will `scp` secure copy Cheffile and dna.json to the EC2 instance, run `libr
 It should print a lot of diagnostic info to the terminal. If it doesn't, wait a little while and try again.
 
 You can ssh into the machine:
-    
+
     ssh -i ~/.ec2/ec2-us-west-1-keypair ubuntu@<ip address>
 
 This will terminate your instances when you're finished:
