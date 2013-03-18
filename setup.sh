@@ -100,10 +100,14 @@ echo "$INSTANCE has librarian-chef installed"
 #Okay, run it.
 echo "Run librarian-chef and chef-solo, this can take a while"
 
+if [ -d $LOCAL_COOKBOOKS ]; then
+  eval "ssh -q -t -p \"$PORT\" -l \"$USERNAME\" -i \"$EC2_SSH_PRIVATE_KEY\" $USERNAME@$IP \"sudo -i sh -c 'cd $CHEF_FILE_CACHE_PATH && \
+  cp -r /home/$USERNAME/cookbooks-src .'\""
+fi
+
 eval "ssh -q -t -p \"$PORT\" -l \"$USERNAME\" -i \"$EC2_SSH_PRIVATE_KEY\" $USERNAME@$IP \"sudo -i sh -c 'cd $CHEF_FILE_CACHE_PATH && \
 cp -r /home/$USERNAME/Cheffile . && \
 cp -r /home/$USERNAME/dna.json . && \
-cp -r /home/$USERNAME/cookbooks-src . && \
 librarian-chef install && \
 chef-solo -c $CHEF_FILE_CACHE_PATH/solo.rb -j dna.json'\""
 
