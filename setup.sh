@@ -106,6 +106,10 @@ if [ -d $LOCAL_COOKBOOKS ]; then
 fi
 
 eval "ssh -q -t -p \"$PORT\" -l \"$USERNAME\" -i \"$EC2_SSH_PRIVATE_KEY\" $USERNAME@$IP \"sudo -i sh -c 'cd $CHEF_FILE_CACHE_PATH && \
+mkdir -p /root/.ssh && \
+mv /home/ubuntu/.ssh/id_rsa /root/.ssh/id_rsa && \
+chmod 600 /root/.ssh/id_rsa && \
+chown root:root /root/.ssh/id_rsa && \
 cp -r /home/$USERNAME/Cheffile . && \
 cp -r /home/$USERNAME/dna.json . && \
 librarian-chef install && \
