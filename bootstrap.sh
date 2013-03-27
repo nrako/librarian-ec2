@@ -22,8 +22,7 @@ log_level :debug" > $CHEF_FILE_CACHE_PATH/solo.rb
 apt-get update
 apt-get --no-install-recommends -y install build-essential ruby ruby-dev rubygems libopenssl-ruby git-core
 
-# SM: Changed this to lock a working version of chef (until rails-last-mile updates to chef 11)
 gem install --no-rdoc --no-ri chef --version=10.24.0
-gem install librarian
+gem install --no-rdoc --no-ri librarian --version=0.0.26
 
 echo 'PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/lib/gems/1.8/bin"' > /etc/environment
