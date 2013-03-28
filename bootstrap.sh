@@ -20,7 +20,8 @@ role_path []
 log_level :debug" > $CHEF_FILE_CACHE_PATH/solo.rb
 
 apt-get update
-apt-get --no-install-recommends -y install build-essential ruby ruby-dev rubygems libopenssl-ruby git-core
+apt-get --no-install-recommends -y install build-essential ruby1.9.1-full libopenssl-ruby git-core
+# apt-get --no-install-recommends -y install build-essential ruby ruby-dev rubygems libopenssl-ruby git-core
 
 gem install --no-rdoc --no-ri chef --version=10.24.0
 gem install --no-rdoc --no-ri librarian --version=0.0.26
