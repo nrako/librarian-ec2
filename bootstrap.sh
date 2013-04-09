@@ -6,21 +6,24 @@ set -e -x
 #Config
 export DEBIAN_FRONTEND=noninteractive
 export CHEF_COOKBOOK_PATH=/tmp/cheftime/cookbooks
+export CHEF_LOCAL_COOKBOOK_PATH=/tmp/cheftime/cookbooks-src
 export CHEF_FILE_CACHE_PATH=/tmp/cheftime
-
 
 mkdir -p $CHEF_FILE_CACHE_PATH
 mkdir -p $CHEF_COOKBOOK_PATH
+mkdir -p $CHEF_LOCAL_COOKBOOK_PATH
 
 #chef solo ruby file
 echo "file_cache_path \"$CHEF_FILE_CACHE_PATH\"
-cookbook_path \"$CHEF_COOKBOOK_PATH\"
+cookbook_path [\"$CHEF_COOKBOOK_PATH\", \"$CHEF_LOCAL_COOKBOOK_PATH\"]
 role_path []
 log_level :debug" > $CHEF_FILE_CACHE_PATH/solo.rb
 
-
 apt-get update
-apt-get --no-install-recommends -y install build-essential ruby ruby-dev rubygems libopenssl-ruby git-core
-gem install --no-rdoc --no-ri chef --version=0.9.12
-gem install librarian
+apt-get --no-install-recommends -y install build-essential ruby1.9.1-full libopenssl-ruby git-core
+# apt-get --no-install-recommends -y install build-essential ruby ruby-dev rubygems libopenssl-ruby git-core
+
+gem install --no-rdoc --no-ri chef --version=11.4.0
+gem install --no-rdoc --no-ri librarian-chef --version=0.0.1
+
 echo 'PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/lib/gems/1.8/bin"' > /etc/environment
